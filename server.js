@@ -3,10 +3,7 @@ import cors from "cors";
 
 const app = express();
 
-/**
- * 🚨 THIS LINE IS CRITICAL
- * Railway injects PORT dynamically
- */
+// 🚨 DO NOT SET A NUMBER HERE
 const PORT = process.env.PORT;
 
 app.use(cors({ origin: "*" }));
@@ -16,10 +13,8 @@ let lastVoiceState = null;
 
 app.post("/voice", (req, res) => {
   lastVoiceState = req.body;
-
   console.log("🧠 VOICE STATE RECEIVED");
   console.log(JSON.stringify(req.body, null, 2));
-
   res.status(200).json({ ok: true });
 });
 
@@ -31,10 +26,7 @@ app.get("/", (req, res) => {
   res.send("✅ Weber AI backend running");
 });
 
-/**
- * 🚨 DO NOT hardcode PORT
- * 🚨 DO NOT use localhost
- */
+// 🚨 IMPORTANT: no localhost, no hardcoded port
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server listening on PORT ${PORT}`);
 });
